@@ -62,4 +62,5 @@ func TestInterfaceCheck(t *testing.T) {
 
 	// 指针方法只能指针调用，value方法可以指针调用和对象调用
 	// var a AInter = Impl{}   // 会报错，因为B()是基于指针的，所以针对于对象是没有全部实现方法的，所以不能赋值给AInter接口
+	// var b AInter = &Impl{}  // ok
 }

@@ -54,3 +54,16 @@ func TestCloseChannel(t *testing.T) {
 	<- c1
 	fmt.Println("success")
 }
+
+func TestNilChannel(t *testing.T) {
+    var c1 chan int
+	go func() {
+		time.Sleep(time.Second * 2)
+		fmt.Println("sleep ok")
+		c1 = make(chan int,1)
+		c1 <- 1
+	}()
+	fmt.Println("main running")
+    <- c1 // 需要初始化之后使用，不然会出现死锁
+	fmt.Println("main running ok")
+}
