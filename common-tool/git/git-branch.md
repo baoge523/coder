@@ -14,17 +14,24 @@ git branch 可以查看分支列表，创建分支、删除分支、查看合并
 ```linux
 git branch
 git branch -v
-git branch -vv
+git branch -vv   每一个分支正在跟踪哪个远程分支与本地分支是否是领先、落后或是都有
 ```
 
 #### 创建分支
 ```linux
 git branch testing
 ```
-#### 删除分支
+#### 删除本地分支
 ```linux
 git branch -d aaa
 git branch -D bbb  // -D表示强制删除，因为在删除的时候可能会报错说，删除的分支没有合并到HEAD分支上
+```
+
+#### 删除远程分支
+```linxu
+git push origin --delete serverfix
+
+基本上这个命令做的只是从服务器上移除这个指针。 Git 服务器通常会保留数据一段时间直到垃圾回收运行，所以如果不小心删除掉了，通常是很容易恢复的。
 ```
 
 #### 查看合并状态
@@ -41,6 +48,13 @@ git branch --no-merged
 查看尚未合并到指定分支的其他分支
 ```linux
 git branch --merged master   // 查看没有合并到master的所有分支
+```
+
+#### 设置本地分支与远程分支的关联
+```linux
+git branch -u origin/dev
+
+git branch --set-upstream-to origin/dev
 ```
 
 
