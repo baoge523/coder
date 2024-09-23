@@ -82,3 +82,44 @@
 1、排查修复安全漏洞后，无法编译部署的问题 -- 未解决
 2、分级告警，恢复时无法通知指定人问题
 ```
+
+## 2024-09-18
+```text
+上午：
+1、将31011的m11环境部署好支持语言通知，并通知测试同学和产品同学验证
+2、排查修改安全漏洞后的编译不通过的问题：
+   vendor中总是少各种cgo的东西，但是通过go env 查看 cgo enable = 1
+
+下午：
+1、排查支持告警登录的链路，丢弃使用calcValue为支持告警登录的方式，换成在cPolicyGroup中添加一个alarmLevel字段
+   ①、保存策略时，在1.0的cPolicyGroup中的alarmLevel字段保存值：serious、warn、remind 或者 null("")
+   ②、因为有同步器的存在，所以会监听mysql binlog，于是修改policy-synchronizer 中对cPolicyGroup的处理添加alarmLevel字段并存放到adp的t_detect_policy的tags中
+   ③、adp检查时，会将t_detect_policy中的tags里面的数据丰富到extraTags中，并透传给amp
+   ④、amp接受到extraTags里面的alarmLevel后，将数据丰富到告警通知里面发送出去
+   ⑤、amp写入告警历史，支持alarmLevel
+   ⑥、告警历史支持alarmLevel的查询 (需要和前端联动)
+
+```
+
+## 2024-09-19
+```text
+早上：
+1、排查m6环境为什么不能告警的问题，原因是计算告警触发时间的时候返回了false导致，具体问题还有待排查
+2、查看告警历史时，发现已经存在了alarmLevel，然后验证了alarmLevel没有被使用
+
+下午：
+1、编写policy-synchronize的转换代码
+2、编写domain_policy的代码，支持创建策略时支持告警级别、支持告警级别的修改、支持告警级别的回显
+3、编写amp的alarmLevel的相关处理
+
+```
+
+## 2024-09-20
+```text
+早上:
+1、处理安全漏洞的vendor问题
+
+下午：
+1、处理安全漏洞的流水线版本问题、从1.15改成1.18 -- 未解决
+2、支持告警等级的功能开始编译打包验证
+```
