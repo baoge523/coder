@@ -123,3 +123,59 @@
 1、处理安全漏洞的流水线版本问题、从1.15改成1.18 -- 未解决
 2、支持告警等级的功能开始编译打包验证
 ```
+
+## 2024-09-23
+```text
+早上：
+1、处理monitor-alarm的编译问题
+   domain_policy和console都依赖于monitor-alarm,选择他们依赖的版本，基于这个commit-id做字段修改并打一个tag共他们使用
+   但是monitor-alarm的go.mod是go1.13的所以如果使用本地环境1.18生产的protocol会带有1.18才有的泛型，这样会导致冲突，所以我使用了1.16版本来生成protocol
+   
+下午：
+1、处理console和domain_policy的编译问题
+2、编写amp的支持告警等级的代码
+3、编译amp
+```
+## 2024-09-24
+```text
+早上：
+1、修改domain_policy中处理告警等级的逻辑
+2、部署环境
+3、修改数据库，支持alarm_policy字段
+
+下午：
+1、和前端同步告警等级的接口信息
+2、处理domain_policy创建策略时报错的问题，// 问题
+3、验证创建策略支持告警等级
+```
+
+## 2024-09-25
+```text
+早上:
+1、验证policy-synchronizer同步策略问题
+   ①、全量同步需要同步绑定对象的策略  SELECT groupId, viewName, ownerVin,appId, lastEditUin, projectId, groupName, isShielded, isUnionRule, alarnLevel FROM PolicyGroup WHERE groupid in (SELECT groupId FROM rApplicationPolicy WHERE appAddress in (-1,0,0,-1,50000001))
+   ②、好像只全量同步了，没有增量同步，需要排查
+   ③、使用了两个db:master_StormCloudConf(创建策略时保存到这个db)、StormCloudConf(这个db是同步器同步的db，创建策略后，会有一定的延时才会同步到该db)
+2、验证安全漏洞修改后，存在// 的问题
+3、排查告警没有携带标签的问题，绑定对象的标签存放在2.0数据的policy_tag_instance表中
+
+下午:
+1、提交安全工单的mr和修复//访问问题(ygin)的mr
+2、排查amp告警失败问题，原因是告警丰富出现了问题，最终定位到是barad-api 中的barad_amsconfig_proj服务连接redis时报错了
+  通过php代码发现: redis的连接是写死的，但是部署的时候，会渲染对应的配置文件
+  所以我们需要等barad-api pod，然后通过find / -name 'config.*.inc.php'查找，找到文件后，就可以根据配置文件如何渲染配置排查问题
+  
+3、tce也有类似于云api的概念，所以需要需要在ted/barad 对应分支 修改yunapi/data/api3tcloud/monitor.json中的参数，然后编译
+```
+
+## 2024-09-26
+```text
+早上：
+1、验证tce 云api修改参数后，部署
+2、编写tce/barad 的db信息
+3、编写tce/barad 消息模版信息
+
+下午:
+1、无法告警排查告警问题
+2、尝试如何排查adp检查数据的问题  --- 待梳理文档，看adp是如何工作的，大数据量是如何保证正常处理的
+```
