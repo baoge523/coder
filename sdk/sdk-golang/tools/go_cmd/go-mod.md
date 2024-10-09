@@ -26,6 +26,19 @@ The commands are:
 ### go mod tidy
 
 ### go mod init
+```linux
+go help mod init
+
+Init initializes and writes a new go.mod file in the current directory
+```
+在当前目录下执行 go mod tidy module_name，就会在当前目录下初始化，并生产一个go.mod的文件，go.mod文件中的模块名称为module_name
+```text
+比如:
+cd projects
+go mod init projects  在projects目录下初始化一个模块叫做projects
+
+```
+
 
 ### go mod vendor
 

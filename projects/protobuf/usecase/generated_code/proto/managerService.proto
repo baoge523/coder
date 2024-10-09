@@ -1,0 +1,55 @@
+syntax = "proto3";
+package andy.manager;
+
+option go_package = "protobuf/usecase/generated_code/proto/managerService";
+
+service ManagerService {
+  rpc createManager(RequestManagerData) returns (Response) {}
+  rpc listManagers(RequestManagerData) returns (ResponseManagerData) {}
+}
+
+message RequestManagerData {
+  string appid = 2;
+  Manager manager = 3;
+}
+
+message Response {
+  int32 status = 1;
+  string message = 2;
+}
+
+message ResponseManagerData {
+  string requestId = 1;
+  repeated Manager managers = 2;
+}
+
+
+
+
+message Manager {
+  string name = 1;
+  repeated string email = 2;
+  string phoneNum = 3;
+  int32 age = 4;
+  Sex sex = 5;
+  map<string,string> hobbies = 6;
+  oneof helper {
+    string man_helper = 7;
+    string woman_helper = 8;
+  }
+  Job job = 9;
+}
+
+
+message Job {
+  string jobName = 1;
+  int32 money = 2;
+  string info = 3;
+}
+
+
+enum Sex {
+  Sex_unknown = 0;
+  Sex_man = 1;
+  Sex_woman = 2;
+}

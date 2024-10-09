@@ -1,0 +1,20 @@
+syntax = "proto3";
+package andy;
+
+option go_package = "generated_code/proto/user";
+
+message User {
+  string name = 1;
+  int32 age = 2;
+  Sex sex = 3;
+  string phoneNum = 4;
+  repeated string email = 5;
+  string address = 6;
+}
+
+
+enum Sex {
+  Sex_unknown = 0;
+  Sex_man = 1;
+  Sex_woman = 2;
+}
