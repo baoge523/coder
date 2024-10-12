@@ -1,7 +1,7 @@
 syntax = "proto3";
-package andy.manager;
+package proto;
 
-option go_package = "protobuf/usecase/generated_code/proto/managerService";
+option go_package = "andy.org/proto/manager";
 
 service ManagerService {
   rpc createManager(RequestManagerData) returns (Response) {}
