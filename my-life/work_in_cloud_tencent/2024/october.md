@@ -62,3 +62,39 @@
 2、梳理默认策略的处理逻辑
 3、排查工单问题
 ```
+
+## 2024-10-14
+```text
+早上:
+1、发布多标签的白名单
+2、tce31011的ted/barad的mr有问题，排查原因；
+   ①、为什么改了代码会导致所有的组件都会监听改动 --- tce31011极光上的监听文件的路径存在问题
+   ②、yunapi_barad 在ted/barad 的.ted/applications/下不存在yunapi_barad，导致mr check时找不到接入的项目
+        改变方式： 在ted/barad的.ted/applications下添加yunapi_barad，并配置相关信息，比如chart.yaml、values.yaml、template\applications.yaml
+                 在极光的yunapi-barad项目tce3.10.11然后编辑版本，修改配置架构
+
+下午:
+1、学习gofmt
+2、查看golang编程规范
+3、处理tce31011新增电话告警的mr问题
+4、处理tdmq的pulsar的默认策略问题
+```
+
+## 2024-10-15
+```text
+早上:
+1、tce3.10.11中的mr检查到多个组件，但是组件中没有包含指定修改组件的对应的tce3.10.11版本，而是tad3.10.11版本
+   而且有时候修改了极光的对应组件的监听文件后，重新打开mr没有生效
+2、安全工单问题，当时自己为了修复安全工单，帮自己私有仓库做了代码提交，这就导致远端私有仓库和远端公有仓库的提交信息不一致，所以需要回滚自己的提交
+  通过 git reset --hard commit_id （这个commit_id是需要回滚的信息的前一个commit_id）
+  git push -f 
+
+  git pull upstream master --rebase
+  git push -f 
+
+下午:
+1、处理工单问题，告警触发条件模版中有事件信息，但是策略列表却展示不出来
+   排查定位原因：首次使用事件创建触发条件模版时使用的viewname是dts，但是查询策略使用的viewname是dts_replication，导致查询不出来
+2、tce3.10.0支持告警等级的测试需求会议
+3、mr组件问题
+```

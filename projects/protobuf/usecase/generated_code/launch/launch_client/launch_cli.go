@@ -2,11 +2,12 @@ package main
 
 import (
 	"context"
+	"log"
+	"time"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"log"
 	pb "projects/protobuf/usecase/generated_code/proto"
-	"time"
 )
 
 func main() {
