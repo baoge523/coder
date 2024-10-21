@@ -218,4 +218,4 @@ Disabled by your configuration linters: 默认关闭的检查
 ### golint的疑问
 
 #### 既然可以通过golangci-lint linters 擦好看配置的规则，那怎么增加规则呢？
-通过官网查看自定义linters规则 https://golangci-lint.run/
+通过官网查看自定义linters规则 https://golangci-lint.run/contributing/new-linters/
