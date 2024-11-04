@@ -31,20 +31,11 @@ func TestTimeLo(tt *testing.T) {
 }
 
 func TestTimeLocation(t *testing.T) {
+	occurTime := time.Unix(int64(1729493640), 0)
+	_, offset := occurTime.Zone()
+	sprintf := fmt.Sprintf("%s (UTC%+d:00)", occurTime.Format("2006-01-02 15:04:05"), offset/3600)
 
-	// 获取当前时区
-	localTimeZone, err := time.LoadLocation("Local")
-	if err != nil {
-		fmt.Println("Error loading local timezone:", err)
-		return
-	}
-	// 时间戳
-	timestamp := int64(1729501805)
-	// 将时间戳转换为时间
-	ti := time.Unix(timestamp, 0).In(localTimeZone).Format("2006-01-02 15:04:05")
-	// 输出带有时区的时间信息
-	fmt.Println("当前时区:", localTimeZone)
-	fmt.Println("转换后的时间:", ti) // 转换后的时间: 2024-10-21 17:10:05 +0800 CST
+	fmt.Println(sprintf)
 
 }
 
@@ -76,4 +67,13 @@ func TestTimeZone(tt *testing.T) {
 		fmt.Println(formattedTime, timeZone)
 	}
 
+}
+
+func TestTimeForRFC(t *testing.T) {
+	loc, _ := time.LoadLocation("America/New_York")
+	now := time.Now()
+	format := now.In(loc).Format("2006-01-02 15:04:05 (UTC-07:00)")
+	fmt.Println(format)
+	format = time.Unix(now.Unix(), 0).In(loc).Format(time.RFC3339)
+	fmt.Println(format)
 }
