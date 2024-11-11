@@ -38,14 +38,14 @@ func TestTimeLocation(t *testing.T) {
 	fmt.Println(sprintf)
 
 }
-
+// 解决不了非整点的时区
 func TestTimeZone(tt *testing.T) {
 	// 时间戳
 	timestamp := int64(1729493640)
 	t := time.Unix(timestamp, 0)
 	// 定义不同的时区
 	timezones := []string{
-		"America/New_York",    // EST/EDT
+		"Asia/Kolkata",    // EST/EDT
 		"Europe/London",       // GMT/BST
 		"Asia/Tokyo",          // JST
 		"Africa/Johannesburg", // SAST
@@ -58,13 +58,10 @@ func TestTimeZone(tt *testing.T) {
 		}
 		// 转换为指定时区
 		localTime := t.In(location)
-		// 获取时区信息
-		_, offset := localTime.Zone()
 		// 格式化输出
-		formattedTime := localTime.Format("2006-01-02 15:04:05")
-		timeZone := fmt.Sprintf("(UTC%+d:00)", offset/3600)
-		// 输出
-		fmt.Println(formattedTime, timeZone)
+		output := localTime.Format("2006-01-02 15:04:05 (UTC-07:00)")
+		fmt.Println(output)
+
 	}
 
 }
@@ -76,4 +73,25 @@ func TestTimeForRFC(t *testing.T) {
 	fmt.Println(format)
 	format = time.Unix(now.Unix(), 0).In(loc).Format(time.RFC3339)
 	fmt.Println(format)
+}
+
+func TestTimeZoneUTC(tt *testing.T) {
+	// 时间戳
+	timestamp := int64(1729493640)
+	// 转换为UTC时间
+	utcTime := time.Unix(timestamp, 0).UTC()
+	// 加载指定时区
+	location, err := time.LoadLocation("Asia/Kolkata")
+	if err != nil {
+		fmt.Println("Error loading location:", err)
+		return
+	}
+	// 转换为指定时区的时间
+	localTime := utcTime.In(location)
+	// 格式化输出
+	output := localTime.Format("2006-01-02 15:04:05 (UTC-07:00)")
+	fmt.Println(output)
+
+
+
 }
