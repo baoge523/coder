@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"log"
+	"projects/example_demo/protobuf/usecase/generated_code/proto"
 	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	pb "projects/protobuf/usecase/generated_code/proto"
 )
 
 func main() {
@@ -19,14 +19,14 @@ func main() {
 	// 连接是一种资源，不用是需要关闭
 	defer conn.Close()
 	// pb通过连接创建客户端
-	client := pb.NewManagerServiceClient(conn)
+	client := manager.NewManagerServiceClient(conn)
 
 	//设置超时时间
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	r, err := client.CreateManager(ctx, &pb.RequestManagerData{
-		Manager: &pb.Manager{
+	r, err := client.CreateManager(ctx, &manager.RequestManagerData{
+		Manager: &manager.Manager{
 			Name: "zhangsan",
 			Age:  18,
 		},

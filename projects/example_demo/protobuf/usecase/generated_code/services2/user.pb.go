@@ -75,9 +75,9 @@ type User struct {
 	unknownFields protoimpl.UnknownFields
 
 	Name     string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Age      int32    `protobuf:"varint,2,opt,name=age,proto3" json:"age,omitempty"`
-	Sex      Sex      `protobuf:"varint,3,opt,name=sex,proto3,enum=andy.Sex" json:"sex,omitempty"`
-	PhoneNum string   `protobuf:"bytes,4,opt,name=phoneNum,proto3" json:"phoneNum,omitempty"`
+	Age      int32  `protobuf:"varint,2,opt,name=age,proto3" json:"age,omitempty"`
+	Sex      Sex    `protobuf:"varint,3,opt,name=sex,proto3,enum=andy.Sex" json:"sex,omitempty"`
+	PhoneNum string `protobuf:"bytes,4,opt,name=phoneNum,proto3" json:"phoneNum,omitempty"`
 	Email    []string `protobuf:"bytes,5,rep,name=email,proto3" json:"email,omitempty"`
 	Address  string   `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
 }

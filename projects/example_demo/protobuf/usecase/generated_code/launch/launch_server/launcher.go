@@ -7,17 +7,17 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	pb "projects/protobuf/usecase/generated_code/proto"
+	"projects/example_demo/protobuf/usecase/generated_code/proto"
 )
 
 type server struct {
-	pb.UnimplementedManagerServiceServer
+	manager.UnimplementedManagerServiceServer
 }
 
-func (s *server) CreateManager(ctx context.Context, req *pb.RequestManagerData) (*pb.Response, error) {
+func (s *server) CreateManager(ctx context.Context, req *manager.RequestManagerData) (*manager.Response, error) {
 	reqStr, _ := json.Marshal(req)
 	fmt.Printf("req body: %s \n", reqStr)
-	return &pb.Response{Status: 200, Message: "ok"}, nil
+	return &manager.Response{Status: 200, Message: "ok"}, nil
 }
 
 func main() {
@@ -29,7 +29,7 @@ func main() {
 	// 获取grpc的server
 	grpcServer := grpc.NewServer()
 	// 将功能服务注册到 grpcServer中
-	pb.RegisterManagerServiceServer(grpcServer, &server{})
+	manager.RegisterManagerServiceServer(grpcServer, &server{})
 	fmt.Printf("grpcServer.Serve launch \n")
 
 	// 启动服务，监听端口

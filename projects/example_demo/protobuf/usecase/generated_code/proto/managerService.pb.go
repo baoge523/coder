@@ -236,9 +236,9 @@ type Manager struct {
 	Name     string            `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Email    []string          `protobuf:"bytes,2,rep,name=email,proto3" json:"email,omitempty"`
 	PhoneNum string            `protobuf:"bytes,3,opt,name=phoneNum,proto3" json:"phoneNum,omitempty"`
-	Age      int32             `protobuf:"varint,4,opt,name=age,proto3" json:"age,omitempty"`
-	Sex      Sex               `protobuf:"varint,5,opt,name=sex,proto3,enum=proto.Sex" json:"sex,omitempty"`
-	Hobbies  map[string]string `protobuf:"bytes,6,rep,name=hobbies,proto3" json:"hobbies,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Age     int32             `protobuf:"varint,4,opt,name=age,proto3" json:"age,omitempty"`
+	Sex     Sex               `protobuf:"varint,5,opt,name=sex,proto3,enum=proto.Sex" json:"sex,omitempty"`
+	Hobbies map[string]string `protobuf:"bytes,6,rep,name=hobbies,proto3" json:"hobbies,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	// Types that are assignable to Helper:
 	//
 	//	*Manager_ManHelper
