@@ -22,5 +22,8 @@ GO111MODULE=on go mod vendor
 
 modvendor -copy="**/*.c **/*.h **/*.proto" -v
 
+
+tce的vender
+
 modvendor -copy="**/*.c **/*.h **/*.proto **/*.h **/*.a **/*.dll" -v
 ```
