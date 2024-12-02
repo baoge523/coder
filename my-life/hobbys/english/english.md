@@ -43,3 +43,15 @@ met up with friends
 caught up on housework \ homework \ sleep \   花时间在什么上 caught 是 catch 的过去分词
 
 ```
+
+```text
+
+nurse 护士
+remind 提醒\使想起
+medication 药物
+
+the nurse reminded me to take my medication
+
+
+
+```
