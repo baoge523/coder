@@ -11,16 +11,12 @@ import (
 	"testing"
 )
 
-type User struct {
-	Name string
-}
-
 func buildServer() *gin.Engine {
 	engine := gin.Default()
 	engine.GET("/ping", func(context *gin.Context) {
 		context.String(200, "ping")
-
 	})
+	engine.POST("/createUser", CreateUser)
 	return engine
 }
 
@@ -71,5 +67,31 @@ func TestPostRequest(t *testing.T) {
 	server.ServeHTTP(res, request)
 
 	assert.Equal(t, 200, res.Code)
-	assert.Equal(t, string(marshal),res.Body.String())
+	assert.Equal(t, string(marshal), res.Body.String())
+}
+
+// test: if struct define such as: `json:"age"  binding:"required"`, when use gin,if age not exists,it must throw error
+func TestCreateUser(t *testing.T) {
+	server := buildServer()
+	server = addPost(server)
+
+	res := httptest.NewRecorder() // 获取一个httptest的responseRecorder:用于接收请求响应
+	uStr := "{\"name\":\"Andy\"}"
+	request, _ := http.NewRequest("POST", "/createUser", bytes.NewBuffer([]byte(uStr)))
+
+	server.ServeHTTP(res, request)
+	fmt.Println(res)
+}
+
+func TestJson(t *testing.T) {
+	var u User
+	uStr := "{\"name\":\"Andy\"}"
+
+	if err := json.Unmarshal([]byte(uStr), &u); err != nil {
+		fmt.Println("error")
+		return
+	}
+
+	fmt.Printf("%v", u)
+
 }
