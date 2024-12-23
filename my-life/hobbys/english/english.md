@@ -85,6 +85,7 @@ i have no idea what can i do
 ```text
 i'm into 我喜欢
 I like  我喜欢
+i enjoy 我喜欢
 
 i'm into cooking
 i'm into basketball
@@ -98,6 +99,50 @@ how did you get into basketball
 how did you get into cooking
 how did you get into drawing
 how did you get into dancing
+
+```
+
+```text
+as long as  只要   就行
+
+i'll go as long as it's free 我会去，只要是免费就行
+
+as long as he is good person  只要他是一个好人就行
+
+as long as you respect me 只要你尊重我就行
+
+as long as you're honest with me  只要你对我诚实就行
+
+等__ = wait for __
+抱怨__ = complain about __
+听__ = listen to __
+照顾__ = take care of __
+对__诚实 = be honest with 
+
+记笔记 = take notes
+捣乱 = act up
+备份 = back up
+偶遇 = run into
+回家 = go home
+放弃 = give up
+让步 = give in
+
+pull over = 靠边停车
+pull up = 出现
+put out = 熄灭
+take off = 起飞
+take over =占领
+
+it's your turn to  轮到你___了
+it's your turn to drive  轮到你开车了
+
+健身 = work out
+自驾游 = road trip
+
+it's your turn to try  轮到你试了
+
+ 
+
 
 
 ```

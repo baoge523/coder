@@ -47,3 +47,15 @@ pointer to above:   &{}, &[], &map[]
 8. **%x**: 十六进制表示
 9. **%p**: 指针地址
 ```
+
+在Go语言中，`%q`是用于格式化字符串的占位符。它会将字符串以双引号包裹，并且对其中的特殊字符（如换行符、制表符等）进行转义。例如：
+```go
+package main
+import (
+    "fmt"
+)
+func main() {
+    str := "Hello, world!\n"
+    fmt.Printf("%q\n", str) // 输出: "Hello, world!\n"
+}
+```
