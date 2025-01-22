@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
+	"go_web/gin/entity"
+	"go_web/gin/usecase/middleware"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -13,16 +15,24 @@ import (
 
 func buildServer() *gin.Engine {
 	engine := gin.Default()
+	engine.Use(middleware.BasicRequest())
 	engine.GET("/ping", func(context *gin.Context) {
 		context.String(200, "ping")
 	})
 	engine.POST("/createUser", CreateUser)
+
+	group := engine.Group("/group1")
+	{
+		group.POST("/create", CreateUser2)
+	}
+
 	return engine
 }
 
+// addPost 添加接口
 func addPost(e *gin.Engine) *gin.Engine {
 	e.POST("/add/user", func(context *gin.Context) {
-		var user User
+		var user entity.User
 		context.BindJSON(&user)
 		context.JSON(200, user)
 	})
@@ -53,7 +63,7 @@ func TestPostRequest(t *testing.T) {
 
 	res := httptest.NewRecorder() // 获取一个httptest的responseRecorder:用于接收请求响应
 
-	user := &User{
+	user := &entity.User{
 		Name: "andy",
 	}
 	marshal, err := json.Marshal(user)
@@ -84,7 +94,7 @@ func TestCreateUser(t *testing.T) {
 }
 
 func TestJson(t *testing.T) {
-	var u User
+	var u entity.User
 	uStr := "{\"name\":\"Andy\"}"
 
 	if err := json.Unmarshal([]byte(uStr), &u); err != nil {

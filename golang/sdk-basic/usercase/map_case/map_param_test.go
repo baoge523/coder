@@ -46,9 +46,8 @@ type Student struct {
 }
 
 func TestMapEmpty(t *testing.T) {
-	map1 := make(map[string]string)
+	tempIdMap := make(map[uint]string)
 
-	student := map1["zhangsan"]
-	fmt.Println(student)
+	tempIdMap[1] = "aaa"
 
 }

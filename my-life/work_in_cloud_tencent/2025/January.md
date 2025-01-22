@@ -50,4 +50,27 @@ morning:
 
 
 afternoon:
+1、告警策略详情和创建支持自定义内容通知模版
+2、提交代码并打出镜像包
+3、learn english
+```
+
+## 2025-01-10
+```text
+morning:
+1、打包domain_policy、amp、console对应的组件服务
+
+
+afternoon:
+1、学习英语
+2、验证创建接口，并调试
+```
+
+## 2025-01-17
+```text
+morning:
+1、处理自定义通知内容模版，告警支持回调
+
+
+afternoon:
 ```

@@ -120,8 +120,11 @@ RC是Kubernetes系统中的核心概念之一，简单来说，它其实定义�
 - 用于筛选目标Pod的Label Selector
 - 当Pod的副本数量小于预期数量时，用于创建新Pod的Pod模板 (template)。
 
-Replication Controller: 基于 label selector 的equal,等值比较
-ReplicaSet: 基于label selector 的set：集合比较
+label selector 的使用:
+- Replication Controller: 基于 label selector 的equal,等值比较
+- ReplicaSet: 基于label selector 的set：集合比较
+
+
 一般不会单独使用ReplicaSet类型，因为它一般被Deployment使用，从而形成一整套Pod创建、删除、更新的 编排机制
 
 总结一下RC(Replica Set)的一些特性与作用。
