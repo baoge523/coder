@@ -49,3 +49,23 @@ func mapNotPoint(m map[string]string) {
 	fmt.Println("copy map 2")
 	fmt.Println(copyMap)
 }
+
+// 测试验证将map转成json对象，并以json的方式返回
+func TestJSONMap(t *testing.T) {
+
+	a1 := []string{"aaa"}
+	fmt.Printf("%+v \n", a1)
+
+	//m1 := make(map[string]string)
+	//m1["aa"] = "aa"
+	//m1["bb"] = "bb"
+	//m2 := make(map[string]interface{})
+	//bytes, _ := json.Marshal(m1)
+	//fmt.Printf("%s \n", string(bytes))
+	//m2["object"] = m1
+	//m2["test"] = "test"
+	//
+	//marshal, _ := json.Marshal(m2)
+	//fmt.Printf("%s \n", string(marshal))
+
+}

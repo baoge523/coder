@@ -1,11 +1,13 @@
 package template_handle
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strings"
 	"testing"
 	"text/template"
+	"time"
 )
 
 type Inventory struct {
@@ -94,8 +96,8 @@ func TestTemplateBlock(t *testing.T) {
 }
 
 func TestTemplatePrint(t *testing.T) {
-	// text := `{{printf "%q" "output"}}` // 输出output
-	text := `{{printf "%q" .}}` // 输出上下文的 aaaa
+	text := `{{printf "%q" "output"}}` // 输出output
+	//text := `{{printf "%q" .}}` // 输出上下文的 aaaa
 	masterTmpl, err := template.New("master").Parse(text)
 	if err != nil {
 		log.Fatal(err)
@@ -103,4 +105,35 @@ func TestTemplatePrint(t *testing.T) {
 	if err := masterTmpl.Execute(os.Stdout, "aaaa"); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func TestTemplateIF(t *testing.T) {
+
+	templateStr := `{{- if eq .current_level_fmt "提示"}}
+通知标题：cos带宽超限告警 -提示
+{{- else if eq .current_level_fmt "严重" }}
+通知标题：cos带宽超限告警 -严重
+{{- else }}
+通知标题：cos带宽超限告警 -紧急
+{{- end}}
+通知时间：{{.first_trigger_time_fmt}}
+
+{{- if eq .current_level_fmt "提示"}}
+通知级别：通知 {{.current_level_fmt}}
+{{- else if eq .current_level_fmt "严重" }}
+通知级别：一般告警  {{.current_level_fmt}}
+{{- else }}
+通知级别：紧急告警  {{.current_level_fmt}}
+{{- end}}`
+
+	data := make(map[string]string)
+	data["current_level_fmt"] = "提示"
+	data["first_trigger_time_fmt"] = time.Now().String()
+
+	parse, _ := template.New("test").Parse(templateStr)
+	err := parse.Execute(os.Stdout, data)
+	if err != nil {
+		fmt.Println("err %w", err)
+	}
+
 }
