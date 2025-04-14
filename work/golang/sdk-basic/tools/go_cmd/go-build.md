@@ -17,7 +17,8 @@ bbb.go
 ```go
 // go build bbb
 ```
-执行 go build 命令时，指定标签
+
+执行 go build 命令时，指定标签 其中 aaa 和 bbb 表示标签
 ```bash
 go build aaa -o aaa_bin
 

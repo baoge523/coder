@@ -23,14 +23,17 @@ func TestInteger(t *testing.T) {
 	// 打印类型
 	fmt.Printf("%T \n", number)
 
-	fmt.Printf("%b \n", number)  // 1100100  二进制
-	fmt.Printf("%c \n", number)  // d  unicode code
-	fmt.Printf("%d \n", number)  // 100
-	fmt.Printf("%o \n", number)  // 144
-	fmt.Printf("%O \n", number)  // 0o144
-	fmt.Printf("%q \n", number)  // 'd'
-	fmt.Printf("%x \n", number)  // 64  16进制带a-f
-	fmt.Printf("%X \n", number)  // 64  16进制带A-F
-	fmt.Printf("%U \n", number)  // U+0064
+	fmt.Printf("%b \n", number) // 1100100  二进制
+	fmt.Printf("%c \n", number) // d  unicode code
+	fmt.Printf("%d \n", number) // 100
+	fmt.Printf("%o \n", number) // 144
+	fmt.Printf("%O \n", number) // 0o144
+	fmt.Printf("%q \n", number) // 'd'
+	fmt.Printf("%x \n", number) // 64  16进制带a-f
+	fmt.Printf("%X \n", number) // 64  16进制带A-F
+	fmt.Printf("%U \n", number) // U+0064
+
+	fmt.Println("---------------")
+	fmt.Printf("%v \n", number) // %v default = %d
 
 }
