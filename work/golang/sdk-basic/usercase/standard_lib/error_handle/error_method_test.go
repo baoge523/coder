@@ -25,6 +25,13 @@ func (m *MyError) Error() string {
 	return m.msg
 }
 
+/**
+  depth-first traversal (深度优先遍历)；
+  errors.Is(A,B) // 深度优先遍历，查看B是否是A的父(祖节点)
+
+  errors.As()
+*/
+
 // 通过fmt.Errorf("%w")包装错误, %w 占位符是一个实现了Error function struct pointer
 // is 表示 当前error 是否是 target error tree 中的父节点（直接或者间接）
 func TestIsError(t *testing.T) {

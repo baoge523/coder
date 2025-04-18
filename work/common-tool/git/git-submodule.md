@@ -8,6 +8,12 @@
 git submodule add  https://xxx
 ```
 
+### 更新了子项目的文件:.gitmodules 需要同步更新
+比如修改了 url 信息
+```bash
+git submodule sync
+```
+
 
 
 ### 从远端clone一个项目到本地，此时本地的子项目是一个空目录

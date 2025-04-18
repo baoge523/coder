@@ -42,7 +42,8 @@ func TestMapDelete(t *testing.T) {
 }
 
 type Student struct {
-	Name string
+	Name    string
+	Hobbies map[string]interface{}
 }
 
 func TestMapEmpty(t *testing.T) {
@@ -50,4 +51,14 @@ func TestMapEmpty(t *testing.T) {
 
 	tempIdMap[1] = "aaa"
 
+}
+
+func TestMapValue(t *testing.T) {
+
+	u := Student{Name: "AAA"}
+	if u.Hobbies == nil {
+		fmt.Println("nil")
+	} else {
+		fmt.Println("not nil")
+	}
 }

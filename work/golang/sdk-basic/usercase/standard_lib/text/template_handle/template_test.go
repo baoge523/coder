@@ -137,3 +137,11 @@ func TestTemplateIF(t *testing.T) {
 	}
 
 }
+
+func TestFlag(t *testing.T) {
+	content := `[[aaa]] = {{.}}`
+
+	parse, _ := template.New("test").Parse(content)
+	parse.Execute(os.Stdout, "hello")
+
+}
