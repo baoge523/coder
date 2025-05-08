@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"log"
+	"os"
 	"testing"
 )
 
@@ -29,4 +30,10 @@ func TestSimpleLog(t *testing.T) {
 	l.Panicf("this is panic info %s", "panic") // 在次之后的代码都不会执行了，但会执行defer操作
 	// l.Fatalf("this is fatal info %s", "yes") // os.Exit(1) 会退出程序
 	fmt.Println("success")
+}
+
+func TestLog(t *testing.T) {
+	// 将log对象的的输出设置为标准输出，然后log操作的日志，都会输出到控制台
+	log.SetOutput(os.Stdout)
+	log.Printf("log set output to os.stdout %s", "hello world")
 }

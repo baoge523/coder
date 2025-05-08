@@ -15,6 +15,7 @@ type Inventory struct {
 	Count    uint
 	Age      int
 	User     User
+	UserList []User
 }
 
 type User struct {
@@ -144,4 +145,22 @@ func TestFlag(t *testing.T) {
 	parse, _ := template.New("test").Parse(content)
 	parse.Execute(os.Stdout, "hello")
 
+}
+func TestArray(t *testing.T) {
+	sweaters := Inventory{Material: "wool", Count: 17, UserList: []User{
+		{
+			Name:  "zhangsan",
+			Hobby: "basketball",
+		},
+	}}
+	tmpl, err := template.New("test").Parse("{{.Count}} items are made of userlist[0].name =  {{ with $info := index .UserList 0}}{{$info.Name}}{{end}}\n")
+	if err != nil {
+		panic(err)
+	}
+
+	// 将模版替换的结果输出到标准输出中
+	err = tmpl.Execute(os.Stdout, sweaters)
+	if err != nil {
+		panic(err)
+	}
 }
