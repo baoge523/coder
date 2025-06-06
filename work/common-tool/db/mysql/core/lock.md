@@ -42,6 +42,9 @@ gap lock (间隙锁)：只有在mysql的可重复读的隔离级别(RR)下才有
 
 gap lock的目的是为了解决mysql中的幻读问题，保证了在同一个事务中多次相同sql的查询操作，不会读取到不一样的数据(强调插入的数据)
 
+如果在业务中觉得gap lock 锁住的区间太大了，可以考虑，将隔离级别设置成read-committed + binlog = row 模式，解决了幻读问题，解决了binlog的日志恢复出来的数据与当前数据库不一致的行为
+binlog = row：
+ 表示sql涉及到的每行都记录一个sql到binlog中，这个虽然解决了read-committed下的幻读问题，但是会导致binlog文件大小剧增
 
 ### 操作
 select ... for update 和 update 的加锁规则是一致的

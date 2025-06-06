@@ -1,10 +1,14 @@
-package pprof
+package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 	"os"
 	"runtime/pprof"
 	"testing"
+
+	_ "net/http/pprof"
 )
 
 /**
@@ -41,6 +45,7 @@ func TestPprof(t *testing.T) {
 		fmt.Println(err)
 		return
 	}
+	defer pprof.StopCPUProfile()
 
 	// memory
 	memFile, err := os.Create("mem.prof")
@@ -53,10 +58,26 @@ func TestPprof(t *testing.T) {
 		fmt.Println(err)
 		return
 	}
+	// memory2
+	memFile2, err := os.Create("mem2.prof")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	err = pprof.WriteHeapProfile(memFile2)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer memFile2.Close()
 
-	// other
 
+}
 
+// net/http/pprof
+func TestHttp(t *testing.T) {
+	go func() {
+		log.Println(http.ListenAndServe("localhost:6060", nil))
+	}()
 
-	// net/http/pprof
 }

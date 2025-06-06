@@ -14,4 +14,5 @@ func TestMethod(t *testing.T) {
 	fmt.Printf("version = %s \n",version)
 	cpu := runtime.NumCPU()
 	fmt.Printf("current cpu num = %d \n",cpu)
+
 }
