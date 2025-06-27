@@ -19,7 +19,7 @@ func Test_1(t *testing.T) {
 
 	params := make(govaluate.MapParameters)
 	params["aa"] = 1
-	params["cup_usage"] = 1.11
+	params["cup_usage111"] = 1.11
 	params["bb"] = 22
 
 	eval, err := expression.Eval(params)

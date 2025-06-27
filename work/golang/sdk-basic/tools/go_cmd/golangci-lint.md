@@ -27,3 +27,11 @@ https://golangci-lint.run/usage/configuration/
 .golangci.yml
 
 也可以通过  golangci-lint config path 查看配置的使用位置
+
+
+### 在golangci-lint中遇到的问题
+```text
+当安装了v1.62.2版本的golangci-lint 后执行，发现存在error错误；需要检测一下当前golang的版本
+1、通过 go version 查看golang版本
+2、通过golangci-lint version 查看 golangci-lint的版本
+```

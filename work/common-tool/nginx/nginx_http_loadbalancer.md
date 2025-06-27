@@ -67,8 +67,3 @@ upstream backend {
 }
 ```
 
-```conf
-```
-
-```conf
-```

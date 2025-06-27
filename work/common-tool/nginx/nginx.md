@@ -23,6 +23,7 @@ starting、stopping、reload nginx configuration and so on
 
 NGINX has one master process and one or more worker processes；If caching is enabled, the cache loader and cache manager processes also run at startup.
 > master process: read and evaluate configuration files; and as well as maintain the worker processes
+> 
 > worker process: do the actual processing of requests
 
 worker process number 在nginx.conf里面配置；可以使用固定值，也可以使用动态值(根据机器的cpu cores)

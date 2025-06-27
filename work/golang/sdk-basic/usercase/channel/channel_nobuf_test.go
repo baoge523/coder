@@ -46,14 +46,14 @@ func TestOneBufChannel(t *testing.T) {
 // 等待多线程执行完可以使用sync.WaitGroup
 func TestCloseChannel(t *testing.T) {
 	// 无缓存channel
-	c1 := make(chan int)
+	c1 := make(chan int, 1)
 	go func() {
 		defer close(c1) // 关闭c1
 		fmt.Println("go func running")
-		time.Sleep(time.Second * 5)
+		time.Sleep(time.Second * 2)
 	}()
-	<-c1
-	fmt.Println("success")
+	age := <-c1
+	fmt.Printf("success %d\n", age)
 }
 
 func TestNilChannel(t *testing.T) {
