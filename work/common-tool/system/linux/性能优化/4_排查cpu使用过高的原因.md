@@ -4,6 +4,11 @@
 
 ### 系统的CPU使用率很高，但为啥却找不到高CPU的应用？
 ab（apache bench）是一个常用的 HTTP 服务性能测试工具
+
+```bash
+ yum install httpd-tools -y
+```
+
 ```text
 # 并发100个请求测试Nginx性能，总共测试1000个请求
 $ ab -c 100 -n 1000 http://192.168.0.10:10000/
