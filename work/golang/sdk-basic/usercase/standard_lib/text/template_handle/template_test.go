@@ -164,3 +164,27 @@ func TestArray(t *testing.T) {
 		panic(err)
 	}
 }
+
+func TestCondition(t *testing.T) {
+	content := "{{ if eq .ContextDimension.Lang \"zh\"}} 用户ID:{{ .MonitorViewDimension.subuin }}｜服务名称:{{ .TableDimension.service_group_name }}｜服务ID:{{ .MonitorViewDimension.taskid }}｜服务描述:{{ .TableDimension.service_description }}｜服务组ID:{{ .TableDimension.service_group_id }} {{else}} SubUin:{{ .MonitorViewDimension.subuin }}｜ServiceName:{{ .TableDimension.service_group_name }}｜ServiceID:{{ .MonitorViewDimension.taskid }}｜ServiceDescribe:{{ .TableDimension.service_description }}｜ServiceGroupID:{{ .TableDimension.service_group_id }} {{end}}"
+
+	params := map[string]map[string]string {
+		"MonitorViewDimension": {"subuin":"uin1111111","taskid":"taskid3333333"},
+		"TableDimension": {"service_group_name":"group_name2222222","service_description":"service_description444444444","service_group_id":"service_group_id555555"},
+		"ContextDimension" :  {"Lang": "en"},
+	}
+	parse, err := template.New("test").Parse(content)
+	if err != nil {
+		fmt.Println(err)
+	}
+	parse.Execute(os.Stdout, params)
+
+}
+
+func TestMap(t *testing.T) {
+	params := make(map[string]map[string]string)
+	m1 := make(map[string]string)
+	m1["bb"] = "bb"
+	params["aa"] = m1
+	fmt.Println(params)
+}

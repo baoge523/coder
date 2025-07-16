@@ -17,4 +17,11 @@ func TestMapInit(t *testing.T) {
 	}
 	a.M["aa"] = "aa"
 	fmt.Println(a)
+	a.M["aa"] = "aabb"
+	fmt.Println(a)
+	a.M["bb"] = "bb"
+	fmt.Println(a)
+	delete(a.M, "bb")
+	fmt.Println(a)
+
 }
