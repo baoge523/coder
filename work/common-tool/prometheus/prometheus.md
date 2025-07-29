@@ -5,7 +5,10 @@ Prometheus会将所有采集到的样本数据以时间序列（time-series）�
 
 ### docker install
 ```bash
-docker run -p 9090:9090 -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+docker run -p 9090:9090 -d -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+
+# 修复容器时间和主机时间不一致的情况，手动挂载时间
+docker run -p 9090:9090 -d  -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml -v /etc/localtime:/etc/localtime prom/prometheus
 ```
 
 ### prometheus 的实例和任务

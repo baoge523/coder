@@ -59,6 +59,8 @@ tcpdump tcp src 10.1.24.100 and src port 80
 
 tcpdump udp dst port 8080
 
+tcpdump -i eth0 dst 1.1.1.1 and dst port 8099 -nn -vvvAs0
+
 ```
 
 
