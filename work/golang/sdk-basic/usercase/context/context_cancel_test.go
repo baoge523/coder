@@ -12,7 +12,7 @@ func TestCancel(t *testing.T) {
 
 	// 这里的ctx 是 cancelCtx
 	ctx, cancelFunc := context.WithCancel(context.Background())
-	ctx = context.WithValue(ctx, "hello", "world")  // ctx 是valueCtx，其中有一个context用来存放parent，key存放入参key，value存放入参value
+	ctx = context.WithValue(ctx, "hello", "world") // ctx 是valueCtx，其中有一个context用来存放parent，key存放入参key，value存放入参value
 	ctx = context.WithValue(ctx, "key1", "value2")
 	wg := sync.WaitGroup{}
 	for i := 0; i < 3; i++ {
@@ -22,19 +22,19 @@ func TestCancel(t *testing.T) {
 			defer wg.Done()
 			fmt.Printf("currentNum = %d  runing \n", currentNum)
 			select {
-			case  <-ctx.Done(): // 这里的ctx.Done(),本质是调用的cancelCtx.Done(),是返回的cancelCtx.done字段存放的值
+			case <-ctx.Done(): // 这里的ctx.Done(),本质是调用的cancelCtx.Done(),是返回的cancelCtx.done字段存放的值
 				fmt.Printf("currentNum = %d stop run\n", currentNum)
 			}
 		}()
 	}
 	time.Sleep(time.Second)
-	cancelFunc()  // 这里执行时，会执行会将cancelCtx.done里面的chan进行close,这样所有监听的<-ctx.Done() 都会收到消息
+	cancelFunc() // 这里执行时，会执行会将cancelCtx.done里面的chan进行close,这样所有监听的<-ctx.Done() 都会收到消息
 	wg.Wait()
 	err := ctx.Err()
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	value := ctx.Value("hello")  // 判断context类型，然后递归查询，O(n)的时间复杂度
+	value := ctx.Value("hello") // 判断context类型，然后递归查询，O(n)的时间复杂度
 	fmt.Println(value)
 	value2 := ctx.Value("key1")
 	fmt.Println(value2)
@@ -56,28 +56,27 @@ func TestMultipleContext(t *testing.T) {
 
 	ctxChild, cancel := context.WithCancel(ctxParent)
 
-
 	wg := sync.WaitGroup{}
 
 	wg.Add(1)
 	go func(name string) {
 		defer wg.Done()
 		select {
-		case <- ctxParent.Done():
-			fmt.Printf("%s ctx cancel \n",name)
-		case <- time.After(2 * time.Second):
-			fmt.Printf("%s time after 2 seconds \n",name)
+		case <-ctxParent.Done():
+			fmt.Printf("%s ctx cancel \n", name)
+		case <-time.After(2 * time.Second):
+			fmt.Printf("%s time after 2 seconds \n", name)
 		}
 	}("parent")
 
 	wg.Add(1)
 	go func(name string) {
-		defer  wg.Done()
+		defer wg.Done()
 		select {
-		case <- ctxChild.Done():
-			fmt.Printf("%s ctx cancel \n",name)
-		case <- time.After(2 * time.Second):
-			fmt.Printf("%s time after 2 seconds \n",name)
+		case <-ctxChild.Done():
+			fmt.Printf("%s ctx cancel \n", name)
+		case <-time.After(2 * time.Second):
+			fmt.Printf("%s time after 2 seconds \n", name)
 		}
 	}("child")
 

@@ -4,18 +4,23 @@ import (
 	"fmt"
 	"testing"
 )
+
 /**
 %v	the value in a default format
 	when printing structs, the plus flag (%+v) adds field names
 %#v	a Go-syntax representation of the value
 %T	a Go-syntax representation of the type of the value
 %%	a literal percent sign; consumes no value
- */
+*/
 
+type Look struct {
+	Face string
+}
 
 type User struct {
 	Name string
-	Age int
+	Age  int
+	Look *Look
 }
 
 // 验证%v 和 %+v
@@ -23,7 +28,7 @@ func TestGeneral(t *testing.T) {
 
 	user := &User{
 		Name: "Andy",
-		Age: 18,
+		Age:  18,
 	}
 
 	fmt.Printf("%v \n", *user)  // {Andy 18}
@@ -36,11 +41,11 @@ func TestGeneral(t *testing.T) {
 func TestGeneral2(t *testing.T) {
 	user := &User{
 		Name: "Andy",
-		Age: 18,
+		Age:  18,
 	}
 
-	fmt.Printf("%#v \n",*user)  // fmt_all.User{Name:"Andy", Age:18}
-	fmt.Printf("%#v \n",user)  // &fmt_all.User{Name:"Andy", Age:18}
+	fmt.Printf("%#v \n", *user) // fmt_all.User{Name:"Andy", Age:18}
+	fmt.Printf("%#v \n", user)  // &fmt_all.User{Name:"Andy", Age:18}
 
 }
 
@@ -48,20 +53,18 @@ func TestGeneral2(t *testing.T) {
 func TestGeneral3(t *testing.T) {
 	user := &User{
 		Name: "Andy",
-		Age: 18,
+		Age:  18,
 	}
 
-	fmt.Printf("%T \n",*user)  // fmt_all.User   结构体类型
-	fmt.Printf("%T \n",user)  // *fmt_all.User   结构体指针类型
+	fmt.Printf("%T \n", *user) // fmt_all.User   结构体类型
+	fmt.Printf("%T \n", user)  // *fmt_all.User   结构体指针类型
 
 }
-
 
 // 验证 %%   不消费任何占位符
 func TestGeneral4(t *testing.T) {
 	fmt.Printf("%% fmt general \n") // % fmt general
 }
-
 
 func TestGeneralString(t *testing.T) {
 
@@ -72,5 +75,3 @@ func TestGeneralString(t *testing.T) {
 	fmt.Printf("%v \n", appid1)
 
 }
-
-

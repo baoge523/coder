@@ -37,8 +37,11 @@ type TextHidden struct {
 	HiddenHandle HiddenHandle
 }
 
+// Format 是fmt包中提供的接口，所以实现它后，可以在fmt打印过程中被调用
 func (p TextHidden) Format(f fmt.State, verb rune) {
+	// 调用内部的hidden接口
 	hiddenText := p.HiddenHandle.hidden(p.Value)
+	// 将加密后的数据，写入state中(本质是一个io)
 	_, err := f.Write([]byte(hiddenText))
 	if err != nil {
 		fmt.Printf("TextHidden Format error %v", err)

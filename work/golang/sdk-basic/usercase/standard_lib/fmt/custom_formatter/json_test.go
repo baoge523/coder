@@ -22,6 +22,7 @@ func TestJson(t *testing.T) {
 	fmt.Println(string(marshal))
 }
 
+// MarshalJSON 将对象marshal成json格式的byte时，调用hidden
 func (p TextHidden) MarshalJSON() ([]byte, error) {
 	hiddenText := p.HiddenHandle.hidden(p.Value)
 	// 注意： 这里需要双引号
