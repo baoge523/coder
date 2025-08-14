@@ -2,6 +2,8 @@
 参考于uber的go编码规范
 [uber编码规范](https://github.com/xxjwxc/uber_go_guide_cn?tab=readme-ov-file)
 
+[google_styleguide](https://google.github.io/styleguide/go/decisions)
+
 建议: 所有代码都应该通过golint和go vet的检查并无错误
 
 ### interface
