@@ -55,7 +55,13 @@ elasticsearch
 
 
 
-ai工作台
+ai工作台： mcp eino rag agent
+mcp: go-mcp 框架
+
+
+分布式
+
+
 
 
 
