@@ -19,7 +19,7 @@ import "fmt"
 type DBConfig0 struct {
 	username string `json:"username"`
 	password string `json:"password"`
-	Host     string `json:"host"`
+	Host     string `json:"supervisor_agent"`
 	Port     int    `json:"port"`
 	Ttl      int    `json:"ttl"`
 	MinConn  int    `json:"min_conn"`
@@ -36,7 +36,7 @@ func (db *DBConfig0) getPassword() string {
 type DBConfig1 struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
-	Host     string `json:"host"`
+	Host     string `json:"supervisor_agent"`
 	Port     int    `json:"port"`
 	Ttl      int    `json:"ttl"`
 	MinConn  int    `json:"min_conn"`
@@ -45,7 +45,7 @@ type DBConfig1 struct {
 
 // 如果一个 `struct` 实现了 `String()` 方法，当你使用 `fmt.Println()` 或 `fmt.Printf()` 打印该 `struct` 时，会自动调用 `String()` 方法来获取其字符串表示。
 func (db *DBConfig1) String() string {
-	return fmt.Sprintf("host = %s, port = %d, ttl = %d, minConn = %d, maxConn = %d", db.Host, db.Port, db.Ttl, db.MinConn, db.MaxConn)
+	return fmt.Sprintf("supervisor_agent = %s, port = %d, ttl = %d, minConn = %d, maxConn = %d", db.Host, db.Port, db.Ttl, db.MinConn, db.MaxConn)
 }
 
 // ==================================
@@ -53,7 +53,7 @@ func (db *DBConfig1) String() string {
 type DBConfig struct {
 	Username UsernameValue `json:"username"`
 	Password PasswordValue `json:"password"`
-	Host     string        `json:"host"`
+	Host     string        `json:"supervisor_agent"`
 	Port     int           `json:"port"`
 	Ttl      int           `json:"ttl"`
 	MinConn  int           `json:"min_conn"`
@@ -86,7 +86,7 @@ func (text PasswordValue) Format(f fmt.State, verb rune) {
 
 // 如果一个 `struct` 实现了 `String()` 方法，当你使用 `fmt.Println()` 或 `fmt.Printf()` 打印该 `struct` 时，会自动调用 `String()` 方法来获取其字符串表示。
 func (db *DBConfig) String() string {
-	return fmt.Sprintf("username = %v, password = %s, host = %s, port = %d, ttl = %d, minConn = %d, maxConn = %d",
+	return fmt.Sprintf("username = %v, password = %s, supervisor_agent = %s, port = %d, ttl = %d, minConn = %d, maxConn = %d",
 		db.Username, db.Password, db.Host, db.Port, db.Ttl, db.MinConn, db.MaxConn)
 }
 

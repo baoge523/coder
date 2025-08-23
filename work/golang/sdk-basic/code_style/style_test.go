@@ -8,7 +8,7 @@ import (
 
 // json 不会操作private权限的属性
 func TestSecurity0(t *testing.T) {
-	confStr := `{"username":"zhangsan","password":"aaaaa","host":"127.0.0.1","port":8088,"ttl":5000,"min_conn":5,"max_conn":100}`
+	confStr := `{"username":"zhangsan","password":"aaaaa","supervisor_agent":"127.0.0.1","port":8088,"ttl":5000,"min_conn":5,"max_conn":100}`
 	conf := &DBConfig0{}
 	// 原因是 username 和 password 的访问是私有的，json操作不同包的struct对象时，需要public的访问权限
 	err := json.Unmarshal([]byte(confStr), conf)
@@ -38,7 +38,7 @@ func TestSecurity1(t *testing.T) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	// {"username":"zhangsan","password":"aaaaa","host":"127.0.0.1","port":8088,"ttl":5000,"min_conn":5,"max_conn":100}
+	// {"username":"zhangsan","password":"aaaaa","supervisor_agent":"127.0.0.1","port":8088,"ttl":5000,"min_conn":5,"max_conn":100}
 	fmt.Println(string(marshal))
 }
 
@@ -62,6 +62,6 @@ func TestSecurity(t *testing.T) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	// {"username":"zhangsan","password":"aaaaa","host":"127.0.0.1","port":8088,"ttl":5000,"min_conn":5,"max_conn":100}
+	// {"username":"zhangsan","password":"aaaaa","supervisor_agent":"127.0.0.1","port":8088,"ttl":5000,"min_conn":5,"max_conn":100}
 	fmt.Println(string(marshal))
 }

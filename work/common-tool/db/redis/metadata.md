@@ -4,7 +4,7 @@
 redis-cli --help
 
 # redis 6.0 后的ACL认证:  auth  redis:redis
-redis-cli -h host  -p port -a auth
+redis-cli -h supervisor_agent  -p port -a auth
 
 ```
 

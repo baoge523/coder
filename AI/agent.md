@@ -175,3 +175,168 @@ https://www.langchain.com/langgraph
 #### Eino
 Eino 框架由以下几个部分组成，其中Eino为核心框架逻辑，包含类型定义、流处理机制、组件抽象、编排功能、切面机制等，Eino-Ext为一些具体组件的实现，例如DeepSeek ChatModel、Langfuse Callbacks等
 ![img_1.png](img/Eino.png)
+
+
+eino-ext langfuse
+https://github.com/cloudwego/eino-ext/tree/main/callbacks/langfuse
+
+
+```text
+模块化和标准化：将一系列功能相同的能力抽象成统一的模块，组件间职能明确、边界清晰，支持灵活地组合。
+可扩展性：接口的设计保持尽可能小的模块能力约束，让组件的开发者能方便地实现自定义组件的开发。
+可复用性：把最常用的能力和实现进行封装，提供给开发者开箱即用的工具使用。
+```
+
+对话处理类组件
+```text
+ChatTemplate 主要作用是将用户提供的变量值填充到预定义的消息模板中，生成用于与语言模型交互的标准消息格式
+type ChatTemplate interface {
+    Format(ctx context.Context, vs map[string]any, opts ...Option) ([]*schema.Message, error)
+}
+
+ChatModel 主要作用是将用户的输入消息发送给语言模型，并获取模型的响应
+type BaseChatModel interface {
+    Generate(ctx context.Context, input []*schema.Message, opts ...Option) (*schema.Message, error)
+    Stream(ctx context.Context, input []*schema.Message, opts ...Option) (
+        *schema.StreamReader[*schema.Message], error)
+}
+
+type ToolCallingChatModel interface {
+    BaseChatModel
+
+    // WithTools returns a new ToolCallingChatModel instance with the specified tools bound.
+    // This method does not modify the current instance, making it safer for concurrent use.
+    WithTools(tools []*schema.ToolInfo) (ToolCallingChatModel, error)
+}
+```
+
+文本语义处理类组件
+```text
+Document.Loader、Document.Transformer
+Embedding
+Indexer： 用于构建向量数据库的
+Retriever：召回，主要用于RAG场景
+```
+
+决策执行类组件
+```text
+ToolsNode：是一个用于扩展模型能力的组件，它允许模型调用外部工具来完成特定的任务
+```
+
+自定义组件
+```text
+Lambda  中的交互模式如下：
+
+交互模式	输入类型	输出类型	适用场景
+Invoke	普通	普通	同步调用，输入输出都是普通数据，如参数校验、数据转换等
+Stream	普通	流式	需要流式输出的场景，如生成文本、语音等
+Collect	流式	普通	需要收集流式输入并汇总的场景，如文本摘要、数据分析等
+Transform	流式	流式	流式数据转换场景，如实时翻译、实时语音转文字等
+```
+
+编排（Compose）
+```text
+Eino通过深入洞察大模型应用的本质特征，提出了基于有向图（Graph）模型的编排解决方案。在这个模型中，各类原子能力组件（Components）作为节点（Node），通过边（Edge）串联形成数据流动网络。每个节点承担特定职责，节点间以上下游数据类型对齐为基本准则，实现类型安全的数据传递。
+```
+
+Graph：运行图, eino通过有向图来组织AI的处理流程
+```text
+compose.NewGraph
+g.AddChatTemplateNode("ChatTemplate", promptTemplate)
+g.AddChatModelNode("ChatModel", chatModel,
+g.AddToolsNode("ToolNode", toolsNode)
+
+ g.AddEdge(compose.START, "ChatTemplate") // edge:1
+ g.AddEdge("ChatTemplate", "ChatModel") // edge:2
+ g.AddBranch("ChatModel", compose.NewGraphBranch  // 分支判断
+
+```
+
+Callbacks: 切面， 通过切面来实现logging、tracing、metrics等可观测能力
+```text
+const (
+    TimingOnStart CallbackTiming = iota // 进入并开始执行
+    TimingOnEnd // 成功完成即将 return
+    TimingOnError // 失败并即将 return err 
+    TimingOnStartWithStreamInput // OnStart，但是输入是 StreamReader
+    TimingOnEndWithStreamOutput // OnEnd，但是输出是 StreamReader
+)
+
+type Handler interface {
+    OnStart(ctx context.Context, info *RunInfo, input CallbackInput) context.Context
+    OnEnd(ctx context.Context, info *RunInfo, output CallbackOutput) context.Context
+    OnError(ctx context.Context, info *RunInfo, err error) context.Context
+    OnStartWithStreamInput(ctx context.Context, info *RunInfo,
+       input *schema.StreamReader[CallbackInput]) context.Context
+    OnEndWithStreamOutput(ctx context.Context, info *RunInfo,
+       output *schema.StreamReader[CallbackOutput]) context.Context
+}
+```
+
+CheckPoint: 检查点，通过设置检查点，可以让AI重复执行时，直接来到检查点的地方执行
+```text
+Checkpoint允许开发者在Agent执行流的任意位置设置"暂停点"，当执行到该点时，系统会将当前上下文和中间结果保存，并将控制权交还给外部（如前端或人工审核系统）。用户可以在此时查看、编辑或补充信息，确认后再恢复Agent的后续执行
+```
+可以实现的功能：
+- 质量审核
+- 实时干预
+- 模型优化
+- 用户互动
+
+Human In The Loop（HITL）是一种让人类用户能够实时参与和干预AI Agent执行过程的机制
+
+我们可以在流程中插入HITL，让用户参与到AI思考过程中，人为的判断AI在调用某个工具时，是否入参正确，逻辑分析是否正确等等
+
+
+### A2A
+tencent开源的trpc-a2a-go
+https://github.com/trpc-group/trpc-a2a-go
+
+
+### LLM也有多种不同的种类的，需要在不同场景下选择不同的LLM
+比如有:
+  意图识别的
+  聊天的
+  拆解任务再执行的
+  总结概要的(summary)
+
+
+### 大模型可观测组件
+langfuse
+https://langfuse.com/
+
+### 深度学习ai agent的资料
+腾讯云开发者社区
+https://cloud.tencent.com/developer/article/2434218
+
+https://mp.weixin.qq.com/s/9D5v6zg1nzlF7aucqeJo8g
+
+https://mp.weixin.qq.com/s/jCRQfvIzgsax2R_04rnUKQ
+
+https://zhuanlan.zhihu.com/p/1903502760411903932
+
+https://blog.langchain.com/langgraph-multi-agent-workflows/
+
+https://www.anthropic.com/engineering/building-effective-agents
+
+腾讯qq机器人 golang
+https://github.com/tencent-connect/botgo
+
+
+### 多agent的协同架构
+```text
+协同架构
+langgraph把多Agent的协同架构做了一下汇总，除了自定义架构，大致有以下几种类型：
+
+1.  Network（网状），网状架构允许每个Agent间互相通讯，该架构的自由度高，但可控性差，适用于社会协同模拟型的Agent形态。
+
+2.  supervisor（监督者），该架构有一个管理者Agent，其他所有Agent之间不能直接沟通，只能与管理者Agent进行沟通。这种架构适用于对任务导向型的多Agent形态，可控性较高，但管理者Agent的智能程度会成为整个多Agent网络的瓶颈。
+
+    a.  supervisor的结构看起来还跟单Agent的结构很相似，实际上，把非管理者Agent看成一个个工具的话，它就等同于一个单Agent，即图中的supervisor(as tools)的结构。
+    b.  所以，多Agent并不神秘，你在以前做单Agent的时候极有可能就已经实现过as tools这种supervisor架构的多Agent应用了。上面"plan and execute"中描述的形态也可以视为一种多Agent。
+
+3.  Hierarchial（层级监督者），层级监督者是由多个监督者网络进行堆叠而成的，如果把监督者网络看成一个小组由一个组长带领多个组员，那层级监督者网络则更大的的组织，例如是一个中心，甚至是部门，业务线等。
+```
+
+
+https://langchain-ai.github.io/langgraph/
