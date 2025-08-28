@@ -119,6 +119,7 @@ func TestTemplatePipeline2(t *testing.T) {
 	tempText := `{{printf "%q" .}}` // %q表示原样输出、.表示上下文，也就是入参
 	TemplateRun(tempText, "current value \n is andy")
 }
+
 // {{if .xxx}} {{else}} {{end}} 这是表达式里面if语句
 func TestTemplatePipelineEnd(t *testing.T) {
 	// {{if pipeline}} T1 {{end}}
@@ -127,13 +128,20 @@ func TestTemplatePipelineEnd(t *testing.T) {
 	TemplateRun(tempText, user)
 }
 
+type Name struct {
+	First string
+}
+
 // {{range .}} {{end}} 这里表达的是循环，其中的.(dot)表示当前上下文的数据
 func TestTemplateRange(t *testing.T) {
 	// {{range pipeline}} T1 {{end}}
-	nameList := []string{"Andy", "bob", "Alise"}
+
+	m := make(map[string]interface{})
+	nameList := []Name{{First: "Andy"}, {First: "bob"}, {First: "Alise"}}
+	m["aa"] = nameList
 	// range后面的.表示入参，里面的.表示的是遍历后的item
-	tempText := `{{range .}} {{"\n"}} - {{.}} {{end}}{{"\n"}}`
-	TemplateRun(tempText, nameList)
+	tempText := `{{range .aa}} {{"\n"}} - {{.First}} {{end}}{{"\n"}}`
+	TemplateRun(tempText, m)
 }
 
 func TemplateRun(tempText string, data any) {
