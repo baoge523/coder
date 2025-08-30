@@ -23,6 +23,11 @@ var (
 时间复杂度:  O(N^2)
 
 同时还依赖与排序操作
+
+暴力求解法：
+1、将所有可能的结果都存放到数组中
+2、按数组排序
+3、取前n个
 */
 func Test1(t *testing.T) {
 
@@ -40,7 +45,7 @@ func Test1(t *testing.T) {
 	for i := 0; i < n; i++ {
 		fmt.Println(numbers[i])
 	}
-
+	fmt.Println("hello")
 }
 
 // 优化上面的操作  本质就是取前n个最小的数(组合)  -- 可以基于小顶堆实现
