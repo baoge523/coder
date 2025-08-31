@@ -5,6 +5,7 @@
 ssh-keygen -t rsa -f ~/.ssh/id_rsa_account1 -C "XXXX1.qq.com"
 ssh-keygen -t rsa -f ~/.ssh/id_rsa_account2 -C "XXXX2.qq.com"
 
+
 2. **编辑 SSH 配置文件**：
    打开或创建 `~/.ssh/config` 文件，添加以下内容：
    
@@ -37,3 +38,14 @@ IdentityFile ~/.ssh/id_rsa_qq
 
 ### 使用git ssh
 将对应账号生产的ssh公钥添加到github中，然后就可以使用git ssh来访问项目了
+
+### 将本地的https访问改成ssh方式访问github
+git config -l
+```text
+remote.origin.url=https://github.com/baoge523/coder.git
+```
+git config --unset-all  remote.origin.url
+
+git config --global remote.origin.url "git@github.com:baoge523/coder.git"
+
+然后再通过 git remote -v 查看origin的地址是否修改过来了，如果修改过来了，那么就可以直接使用了

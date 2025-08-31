@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"sync"
 )
 
@@ -59,9 +60,49 @@ func post(root *Node) {
 	fmt.Println(root.Num)
 }
 
+var AllValues []string
+
+func NodeValue(root *Node, pre string) {
+	if root == nil {
+		return
+	}
+	pre = pre + strconv.Itoa(root.Num) // 倒插的思想
+
+	// 边界处理，如果是叶子节点就处理
+	if checkIsLeftNode(root) {
+		AllValues = append(AllValues, pre)
+	}
+	if root.Left != nil {
+		NodeValue(root.Left, pre)
+	}
+	if root.Right != nil {
+		NodeValue(root.Right, pre)
+	}
+
+}
+
+// checkIsLeftNode 检查是否是叶子节点
+func checkIsLeftNode(root *Node) bool {
+	if root != nil && root.Left == nil && root.Right == nil {
+		return true
+	}
+	return false
+}
+
 func main() {
 	root := initTree()
-	post(root)
+	NodeValue(root, "")
+	fmt.Println(AllValues)
+	sum := 0
+	for _, value := range AllValues {
+		atoi, err := strconv.Atoi(value)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		sum += atoi
+	}
+	fmt.Println(sum)
 }
 
 func aaa() {
