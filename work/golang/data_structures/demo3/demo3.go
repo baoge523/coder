@@ -20,7 +20,7 @@ func main() {
 			<-c1
 			fmt.Printf("%d  ", nums[i])
 			c2 <- struct{}{}
-			i += 2
+			i += 1
 		}
 
 	}()
@@ -28,13 +28,13 @@ func main() {
 	go func() {
 		defer w.Done()
 
-		for i := 1; i < len(nums); {
+		for i := 0; i < len(nums); {
 			<-c2
 			fmt.Printf("%d  ", nums[i])
-			if i+2 < len(nums) {
+			if i+1 < len(nums) {
 				c1 <- struct{}{}
 			}
-			i += 2
+			i += 1
 		}
 
 	}()

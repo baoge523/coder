@@ -192,4 +192,91 @@ https://leetcode.cn/problems/diameter-of-binary-tree/description/
 
 
 
-#### 
+#### 对称二叉树  -- 没有一次性做出来
+https://leetcode.cn/problems/symmetric-tree/description/
+给你一个二叉树的根节点 root ， 检查它是否轴对称。是基于root根节点进行对称的
+
+思路是：递归遍历，左子树的左，右和右子树的右，左 进行比较
+
+退出条件：
+  1、左右子节点同时为nil时，返回true
+  2、左右子节点一个为nil，一个不为nil时，返回false
+
+循环条件：
+  循环判断左节点的左和右节点的右
+   左节点的右和右节点的左
+  同时当前的左右节点的值需要是相同的
+
+
+迭代的思路：基于队列的方式层级遍历，但是层级遍历需要将相互比较的节点同时存放到queue中
+
+1、将root两次加入到queue中（主要的目的就是方便取出root的左右进行比较）
+2、循环处理queue，每次从队列中取出两个节点出来，包含nil节点，然后比较则两个节点，判断是否相同（是否为nil，是否值相同）
+3、如果不相同就返回false退出，如果相同，就将其left.Left和right.Right 、left.Right和right.Left 放入队列中
+4、一直循环直到遍历结束返回
+
+
+#### 翻转二叉树  -- 第一时间没有做出来
+https://leetcode.cn/problems/invert-binary-tree/description/
+给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。
+
+思路：递归的方式，自下而上的将所有的节点都翻转了，就完成了二叉树的翻转
+
+```go
+ // 思路： 递归翻转每一个节点的左右节点，叶子节点的时候不翻转
+func invertTree(root *TreeNode) *TreeNode {
+    if root == nil {
+        return root
+    }
+    left := invertTree(root.Left) // 翻转左子树
+    right := invertTree(root.Right) // 翻转右子树
+	// 翻转当前节点，并返回
+    root.Left = right 
+    root.Right = left
+    return root
+}
+```
+
+
+#### 处理二叉树的思维方式
+1、看整体需要达到的效果，但不要陷入到整体中去，学会化整为零
+2、将二叉树拆分成一个节点（叶子节点）、两个节点（一个父节点，一个子节点）、三个节点（一个父节点、两个子节点）
+3、分别将上面的三种场景拿来整理成公式处理
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
