@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"testing"
 )
 
@@ -50,4 +51,5 @@ func Test1(t *testing.T) {
 func hand(root *ListNode, target *ListNode) {
 	target = root
 	fmt.Println(target)
+	strconv.Atoi(strconv.Itoa(root.Val))
 }

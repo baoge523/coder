@@ -259,5 +259,5 @@ func main() {
 可能的问题3：自己手动的创建了一个新的context，没有继承之前的context导致
 
 
-### open-telemetry中的 trance id的传递方式
+### open-telemetry中的 trace id的传递方式
 OpenTelemetry 在 HTTP 和 RPC 场景下，都是通过协议的 Header（或元数据）来传递 Trace ID 的。 这是实现分布式上下文传播的标准方法。
