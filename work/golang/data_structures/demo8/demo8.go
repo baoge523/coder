@@ -1,57 +1,47 @@
 package main
 
-/**
-实现一个抢红包的功能，可以设置总金额和总个数，为了使大家都能满意，需保证每个红包的金额都在平均值左右，最大波动范围可以是平均值的一半，红包金额值可以到分。
-1. 输入: 总金额 100，总红包数 11
-2. 设计多个测试用例，确认程序的正确性，即总金额、总红包数使用多种组合
-*/
+import (
+	"bytes"
+	"fmt"
+	"sync"
+)
 
-// 思路：输出总个数的金额，同时只和等于总金额; 随机数区间，然后总数递减
 func main() {
-
-	total := 100.0
-	count := 10
-
-	avg := total / count. // 10
-
-	a := avg / 2		//5
-
-	var target []float
-
-	for i:=0;i<count;i++ {
-		// 计算随机值（区间）
-		if i == count-1 {
-			target = append(target,total)
-			break
-		}
-		curr := calc(total,avg,a)
-		target = append(target,curr)
-		total -=curr
-	}
-
+	test()
 
 }
-// 需要保证在total下分配，同时尽可能的在avg左右，波动是r
-func calc(total float,avg float,r float) float {
-	// 随机值的上下范围
-	max := avg + r. // 15
-	min := avg - r  // 5
 
-	if total <= min { // 左闭又开原则
-		max := total
-		min := 0.01
+func test() {
+	wg := sync.WaitGroup{}
+	num1 := 0
+	target := 5
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		temp := num1
+		go func() { // 一般启动一个goroutine都会有一定的时间（等待cpu的调度），所以当执行是num1早就被改成10了，所以拿到的数据就是10
+			defer wg.Done()
+
+			if temp > target {
+				fmt.Println("done")
+				return
+			}
+		}()
+		num1++
 	}
+	wg.Wait()
+	fmt.Println("ok")
+}
 
+func test1() {
+	a := []byte("aaa/bbbb")
+	index := bytes.IndexByte(a, byte('/'))
+	b := a[:index]
+	c := a[index+1:]
 
-	var curr float
-	for {
-		// 随机值 左闭又开原则
-		curr = math.Random(min,max)
-		if curr < total {
-			break
-		}
+	b = append(b, "ccc"...)
 
-	}
-
-	return curr
+	// 数组通过[:]分割出来的数组，会共用内存
+	fmt.Println(string(a)) // aaacccbb
+	fmt.Println(string(b)) // aaaccc
+	fmt.Println(string(c)) // ccbb
 }

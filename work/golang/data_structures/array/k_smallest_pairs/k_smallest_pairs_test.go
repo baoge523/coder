@@ -30,7 +30,6 @@ var (
 3、取前n个
 */
 func Test1(t *testing.T) {
-
 	numbers := make(Numbers, 0, len(array1)*len(array2))
 
 	for i := 0; i < len(array1); i++ {

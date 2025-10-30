@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	 _ "net/http/pprof"
+	_ "net/http/pprof"
 )
 
 // https://pkg.go.dev/net/http/pprof@go1.20
@@ -17,7 +17,7 @@ func main() {
 		log.Println(http.ListenAndServe("localhost:6060", nil))
 	}()
 
-	mockUseMemory := make([]byte,1024 *1024)
+	mockUseMemory := make([]byte, 1024*1024)
 
 	if len(mockUseMemory) == 100 {
 		fmt.Println("mockUseMemory len = 100")
@@ -29,15 +29,13 @@ func main() {
 }
 
 type HelloWorld struct {
-
 }
 
 func (h *HelloWorld) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
-	fmt.Printf("url = %s",req.RequestURI)
-
+	fmt.Printf("url = %s", req.RequestURI)
 	_, err := resp.Write([]byte("success"))
 	if err != nil {
-		fmt.Printf("error = %v",err)
+		fmt.Printf("error = %v", err)
 	}
 	return
 }
