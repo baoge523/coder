@@ -1,0 +1,3 @@
+
+# ignore secure file, do not push to github
+web3/web3-go/conf/secure.json
