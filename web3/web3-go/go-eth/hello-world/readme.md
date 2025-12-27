@@ -135,6 +135,54 @@ go install github.com/ethereum/go-ethereum/cmd/abigen@latest
  abigen --abi=abi/storage.abi --pkg=storage --type=Storage --out=storage.go
 ```
 
+## access the smart contracts on alchemy via golang
+all steps
+1. apply an account on alchemy and you should create an app
+2. write a simple solidity smart contract on remix
+3. choose the sepolia test network and set network address (your app access address on alchemy) on metaMask
+4. deploy smart contract and Environment choose sepolia-testnet-metaMask (you should create a smart contract account)
+5. get a smart contract address (Deployed Contracts) 
+6. get ABI(json file) and generate xxx.go file vie abigen tool
+7. write a golang progress to access smart contract
+
+### smart contract solidity
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.8.2 <0.9.0;
+
+/**
+ * @title Storage
+ * @dev Store & retrieve value in a variable
+ * @custom:dev-run-script ./scripts/deploy_with_ethers.ts
+ */
+contract Storage {
+
+    uint256 number;
+
+    /**
+     * @dev Store value in variable
+     * @param num value to store
+     */
+    function store(uint256 num) public {
+        number = num;
+    }
+
+    /**
+     * @dev Return value 
+     * @return value of 'number'
+     */
+    function retrieve() public view returns (uint256){
+        return number;
+    }
+}
+```
+
+### golang program
+1. access address
+2. smart contract
+
+
 # package
 
 ## common

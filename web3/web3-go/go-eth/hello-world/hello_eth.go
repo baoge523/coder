@@ -21,7 +21,9 @@ import (
 var (
 	address              = "" // 0.01
 	address2             = "" // 0
-	smartContractAddress = "" // smart contract
+	smartContractAddress = "" // smart contract address
+	smartContractOwner   = ""
+	smartContractOwnerSK = ""
 
 	SK            = ""
 	ethSepoliaURL = "http://127.0.0.1:8545"
@@ -35,21 +37,59 @@ func init() {
 	address = secure.Accounts[0].Address
 	address2 = secure.Accounts[1].Address
 	smartContractAddress = secure.Accounts[2].Address
+	smartContractOwner = secure.Accounts[3].Address
+	smartContractOwnerSK = secure.Accounts[3].SK
 	SK = secure.Accounts[0].SK
+
 	ethSepoliaURL = secure.EthSepoliaURL
 }
 
 func main() {
 	// ipc and host:ip(local node)
-	client, err := ethclient.Dial(ethSepoliaURL)
+	//client, err := ethclient.Dial(ethSepoliaURL)
+	//if err != nil {
+	//	panic(err)
+	//}
+
+	//estimateGas(client)
+
+	contractCaller := NewContractCaller()
+
+	err := contractCaller.CallEventDeposit(common.HexToAddress(smartContractAddress))
 	if err != nil {
-		panic(err)
+		fmt.Println("Failed to call contract:", err)
 	}
+	err = contractCaller.CallEventDisplay(common.HexToAddress(smartContractAddress))
+	if err != nil {
+		fmt.Println("Failed to call contract:", err)
+	}
+	err = contractCaller.obtainEventLogs()
+	if err != nil {
+		fmt.Println("Failed to obtain event logs:", err)
+	}
+	
+	//err := contractCaller.CallViewFunction(common.HexToAddress(smartContractAddress))
+	//if err != nil {
+	//	panic(err)
+	//}
+	//time.Sleep(1 * time.Second)
+	//err = contractCaller.CallWriteFunction(common.HexToAddress(smartContractAddress))
+	//if err != nil {
+	//	panic(err)
+	//}
+	//time.Sleep(1 * time.Second)
+	//err = contractCaller.CallViewFunction(common.HexToAddress(smartContractAddress))
+	//if err != nil {
+	//	panic(err)
+	//}
+
+	// transactionID 0xded48391224840b336447f3373734cf9d1b7a7d481767848fd5f59f6926fbccf
+	//getTransactions(client, "0xded48391224840b336447f3373734cf9d1b7a7d481767848fd5f59f6926fbccf")
 	//gasInfo(client)
-	err = sendTransaction(client)
-	if err != nil {
-		panic(err)
-	}
+	//err = sendTransaction(client)
+	//if err != nil {
+	//	panic(err)
+	//}
 	//getTransactions(client)
 
 	//blockInfo(client)
@@ -243,8 +283,8 @@ func queryEvent2(client *ethclient.Client) {
 	}
 }
 
-func getTransactions(client *ethclient.Client) {
-	transID := "0x491ba6828c57fdfd524535f1d39cb016d0575063714b579a73763ba76c8335a4"
+func getTransactions(client *ethclient.Client, transID string) {
+	// transID := "0x491ba6828c57fdfd524535f1d39cb016d0575063714b579a73763ba76c8335a4"
 
 	tx, pending, err := client.TransactionByHash(context.Background(), common.HexToHash(transID))
 	if err != nil {
@@ -472,12 +512,12 @@ func estimateGas(client *ethclient.Client) {
 	}
 	fmt.Println("estimate gas at block:", gas)
 
-	gas, err = client.EstimateGasAtBlockHash(ctx, ethereum.CallMsg{}, common.HexToHash("block hash string"))
-	if err != nil {
-		fmt.Println("Failed to estimate gas:", err)
-		return
-	}
-	fmt.Println("estimate gas at block hash:", gas)
+	//gas, err = client.EstimateGasAtBlockHash(ctx, ethereum.CallMsg{}, common.HexToHash("block hash string"))
+	//if err != nil {
+	//	fmt.Println("Failed to estimate gas:", err)
+	//	return
+	//}
+	//fmt.Println("estimate gas at block hash:", gas)
 
 }
 
