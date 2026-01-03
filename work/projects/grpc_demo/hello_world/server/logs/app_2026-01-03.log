@@ -1,0 +1,4 @@
+{"level":"INFO","time":"2026.01.03 20:27:48","message":"server listening at [::]:50051"}
+{"level":"INFO","time":"2026.01.03 20:28:08","message":"sleep 3 seconds","caller_ip":"[::1]:58650","caller_service":"hello_world_caller","caller_version":"1.0.0","callee_service":"hello_world.Greeter","callee_method":"SayHello"}
+{"level":"INFO","time":"2026.01.03 20:28:08","message":"Received: Alice","caller_ip":"[::1]:58650","caller_service":"hello_world_caller","caller_version":"1.0.0","callee_service":"hello_world.Greeter","callee_method":"SayHello"}
+{"level":"INFO","time":"2026.01.03 20:28:08","message":"Received: Alice"}

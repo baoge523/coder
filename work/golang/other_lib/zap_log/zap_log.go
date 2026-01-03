@@ -2,9 +2,10 @@ package zap_log
 
 import (
 	"fmt"
+	"sync"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"sync"
 )
 
 var loggerProvider = provider{logger: delegationLogger{Logger: &LoggerImpl{zap: zap.Must(DefaultConfig.Build())}}}
@@ -18,6 +19,7 @@ var DefaultConfig = zap.Config{
 	EncoderConfig: zapcore.EncoderConfig{
 		MessageKey:   "message",
 		LevelKey:     "level",
+		NameKey:      "logger",
 		CallerKey:    "Caller",
 		FunctionKey:  "Func",
 		EncodeLevel:  zapcore.CapitalLevelEncoder,
