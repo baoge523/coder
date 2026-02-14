@@ -14,10 +14,12 @@ ssh-keygen -t rsa -f ~/.ssh/id_rsa_account2 -C "XXXX2.qq.com"
    User your_username1
    IdentityFile ~/.ssh/id_rsa_account1
    
-   Host account2
-   HostName example.com
-   User your_username2
-   IdentityFile ~/.ssh/id_rsa_account2
+   Host github.com-work  // 自定义
+   HostName github.com
+   User git
+   IdentityFile ~/.ssh/id_rsa_Epiphany523  // 指定密钥文件
+
+验证： ssh -T git@github.com-work
 
 3. **设置权限**：
    确保 SSH 文件夹和密钥的权限正确：
@@ -26,6 +28,16 @@ ssh-keygen -t rsa -f ~/.ssh/id_rsa_account2 -C "XXXX2.qq.com"
    chmod 600 ~/.ssh/id_rsa_account1
    chmod 600 ~/.ssh/id_rsa_account2
 
+4. 拉取项目：
+   git@github.com:Epiphany523/agollo.git
+   
+   需要替换一下
+   git clone git@github.com-work:Epiphany523/agollo.git
+   
+5. 添加用户名和邮件
+  git config --local --list
+  git config --local user.name   Epiphany523
+  git config --local user.email   
 ```
 
 ~/.ssh/config 文件信息如下:

@@ -65,8 +65,9 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	defer log.Sync()
-	// add interceptor
+	// 创建一个server，并注册一个拦截器 （服务端拦截器）
 	s := grpc.NewServer(grpc.ChainUnaryInterceptor(metadataFilter))
+	// 通过pb将方法实现的serviceImpl注入到server中
 	hello_world.RegisterGreeterServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {

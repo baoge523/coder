@@ -3,6 +3,25 @@
 主要是熟悉grpc-go在使用grpc的全流程，从定义pb，生产client-stub、server-stub的整个过程
 
 ### 参考官方文档安装插件并知道如何根据pb生成代码
+protoc 命令是命令行的需要自己安装
+
+mac
+```bash
+brew install protobuf
+
+which protoc
+
+protoc version
+```
+https://protobuf.dev/reference/go/go-generated/
+```bash
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest 
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+protoc --go_out=. --go_opt=paths=source_relative \ 
+    --go-grpc_out=. --go-grpc_opt=paths=source_relative \ 
+    hello_world.proto 
+```
 
 
 ### 了解grpc-go调用过程中，peer和metadata获取的原数据信息
