@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../open_source/agollo/.idea/agollo.iml" filepath="$PROJECT_DIR$/../open_source/agollo/.idea/agollo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ai-broker-server/.idea/ai-broker-server.iml" filepath="$PROJECT_DIR$/../ai-broker-server/.idea/ai-broker-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/coder.iml" filepath="$PROJECT_DIR$/.idea/coder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../script/cv-test/.idea/cv-test.iml" filepath="$PROJECT_DIR$/../../script/cv-test/.idea/cv-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../open_source/grpc-go/.idea/grpc-go.iml" filepath="$PROJECT_DIR$/../open_source/grpc-go/.idea/grpc-go.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../script/wallpaper2/.idea/wallpaper2.iml" filepath="$PROJECT_DIR$/../../script/wallpaper2/.idea/wallpaper2.iml" />
     </modules>
   </component>
 </project>

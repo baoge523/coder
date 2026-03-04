@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option go_package = "grpc-demo-new/proto";
+
+package user;
+
+// 用户服务定义
+service UserService {
+  // 获取用户信息
+  rpc GetUser (GetUserRequest) returns (GetUserResponse) {}
+  
+  // 创建用户
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {}
+}
+
+// 获取用户请求
+message GetUserRequest {
+  int64 user_id = 1;
+}
+
+// 获取用户响应
+message GetUserResponse {
+  int64 user_id = 1;
+  string username = 2;
+  string email = 3;
+  int64 created_at = 4;
+}
+
+// 创建用户请求
+message CreateUserRequest {
+  string username = 1;
+  string email = 2;
+}
+
+// 创建用户响应
+message CreateUserResponse {
+  int64 user_id = 1;
+  string message = 2;
+}

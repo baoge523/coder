@@ -5,5 +5,10 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="wallpaper2" />
+    <orderEntry type="module" module-name="grpc-go" />
+    <orderEntry type="module" module-name="agollo" />
+    <orderEntry type="module" module-name="cv-test" />
+    <orderEntry type="module" module-name="ai-broker-server" />
   </component>
 </module>

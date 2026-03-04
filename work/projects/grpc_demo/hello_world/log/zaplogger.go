@@ -20,6 +20,7 @@ var (
 
 const timeLayout = "2006.01.02 15:04:05"
 
+// go get gopkg.in/natefinch/lumberjack.v2
 // lumberjack 实现文件存储日志文件，并按天和文件大小滚动
 func initRollFileLogger() io.Writer {
 	// 按天生成文件名
