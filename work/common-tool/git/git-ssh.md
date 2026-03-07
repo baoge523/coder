@@ -61,3 +61,42 @@ git config --unset-all  remote.origin.url
 git config --global remote.origin.url "git@github.com:baoge523/coder.git"
 
 然后再通过 git remote -v 查看origin的地址是否修改过来了，如果修改过来了，那么就可以直接使用了
+
+### 记录一个ssh连接github的问题
+开启代理时，通过ssh连接github会报错
+```text
+ssh -T git@github.com
+kex_exchange_identification: read: Connection reset by peer
+Connection reset by 127.0.0.1 port 7890
+```
+
+./ssh/config信息如下：
+```text
+Host github.com
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa_github
+
+Host github.com-work
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa_Epiphany523
+```
+
+将22端口改成443端口配置---即可
+```text
+Host github.com
+HostName ssh.github.com
+Port 443
+User git
+IdentityFile ~/.ssh/id_rsa_github
+
+Host github.com-work
+HostName ssh.github.com
+Port 443
+User git
+IdentityFile ~/.ssh/id_rsa_Epiphany523
+```
+然后测试验证 得到欢迎界面即可成功
+ssh -T -p 443 git@github.com
+ssh -T -p 443 git@github.com-work
